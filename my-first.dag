@@ -1,0 +1,5 @@
+JOB A A.sub
+SCRIPT POST A A-check.sh
+JOB B B.sub
+
+PARENT A CHILD B

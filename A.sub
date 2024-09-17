@@ -1,0 +1,15 @@
+log = A.log
+
+executable = A.sh
+
+output = A.out
+error = A.err
+
+request_cpus = 1
+request_memory = 1GB
+request_disk = 1GB
+
++UseOS = "el9"
++JobCategory = "short"
+
+queue
