@@ -1,6 +1,7 @@
 log = B.log
 
 transfer_input_files = A.out
+should_transfer_files = YES
 
 executable = B.sh
 
