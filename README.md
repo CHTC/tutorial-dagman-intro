@@ -110,11 +110,11 @@ Finally, the last line declares that job `A` is the "parent" of job `B`, which m
 > Note that the order of the lines does not technically matter, but for your own organization it may be helpful to declare items in the order
 > you expect them to be executed.
 
-### "DAG" vs "DAGMan"
+### A Quick Aside: "DAG" vs "DAGMan"
 
-"DAG" is the workflow - the jobs and the sequence in which you want them submitted.
+* "DAG" is the workflow - the jobs and the sequence in which you want them submitted.
 
-"DAGMan" is the tool used to execute the "DAG" and is responsible for monitoring and automatically submitting the jobs in the correct sequence.
+* "DAGMan" is the tool used to execute the "DAG" and is responsible for monitoring and automatically submitting the jobs in the correct sequence.
 
 The contents of the DAG description file (`.dag`) generally describes the structure of the DAG workflow, 
 but can also include commands to modify the behavior of the DAGMan instance that is executing the workflow.
