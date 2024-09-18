@@ -5,8 +5,11 @@ This tutorial guides you through how to use DAGMan to submit two HTCondor jobs.
 
 ## Setup
 
-Copy the contents of this directory at `/data/datagrid/htcondor_tutorial/tutorial-dagman-intro` to your working directory.
-Or clone the Github repository available at [https://github.com/CHTC/tutorial-dagman-intro](https://github.com/CHTC/tutorial-dagman-intro):
+While logged into your HTCondor Access Point, obtain the materials for this tutorials using one of the two options below: 
+
+**Option (1)** Copy the contents of this directory at `/data/datagrid/htcondor_tutorial/tutorial-dagman-intro` to your working directory.
+
+**Option (2)** Clone the Github repository available at [https://github.com/CHTC/tutorial-dagman-intro](https://github.com/CHTC/tutorial-dagman-intro):
 
 ```
 git clone -b '2024-09-Utrecht' https://github.com/CHTC/tutorial-dagman-intro.git
@@ -102,16 +105,16 @@ The first line declares a job with the label `A` and a corresponding submit file
 The second line declares that job `A` has a script `A-check.sh` that must be executed after the submission of `A.sub` finishes;
 DAGMan will consider job `A` successful only if the execution of `A-check.sh` is also successful.
 The third line declares a job with the label `B` and a corresponding submit file `B.sub`.
-Finally, the last line declares that job `A` is the "parent" of job `B`, which means job `B` will be submitted if and only if job `A` is totally successful.
+Finally, the last line declares that job `A` is the "parent" of job `B`, which means job `B` will be submitted if and only if job `A` is  successful.
 
 > Note that the order of the lines does not technically matter, but for your own organization it may be helpful to declare items in the order
 > you expect them to be executed.
 
-### "DAG" vs "DAGMan"
+### A Quick Aside: "DAG" vs "DAGMan"
 
-"DAG" is the workflow - the jobs and the sequence in which you want them submitted.
+* "DAG" is the workflow - the jobs and the sequence in which you want them submitted.
 
-"DAGMan" is the tool used to execute the "DAG" and is responsible for monitoring and automatically submitting the jobs in the correct sequence.
+* "DAGMan" is the tool used to execute the "DAG" and is responsible for monitoring and automatically submitting the jobs in the correct sequence.
 
 The contents of the DAG description file (`.dag`) generally describes the structure of the DAG workflow, 
 but can also include commands to modify the behavior of the DAGMan instance that is executing the workflow.
@@ -177,11 +180,12 @@ For more information about your DAG workflow, you can use the `-dag` and `-nobat
 For example,
 
 ```
-condor_q -dag
+condor_q -dag -nobatch
 ```
+or just
 
 ```
-condor_q -dag -nobatch
+condor_q -nobatch
 ```
 
 ## What's happening?
@@ -196,7 +200,7 @@ In this example, the following sequence of events occurs:
 6. Job `A` executes like a regular HTCondor job.
 7. DAGMan sees that job `A` has completed.
 8. DAGMan executes the POST script `A-check.sh`.
-9. The script should run successfully, meaning job `A` encountered no errors.
+9. The script should run successfully, meaning job `A` encountered no errors and exits with exit code 0.
 10. Now that job `A` and its POST script have completed successfully, DAGMan determines job `B` is ready to submit.
 11. DAGMan submits job `B` using `B.sub`.
 12. Job `B` is queued and the DAGMan job monitors its progress.
@@ -268,7 +272,7 @@ These individual log files will be created as normal, but their contents will be
 > it has submitted on your behalf.
 
 Finally, the `my-first.dag.metrics` file is created when the DAGMan job itself completes (whether successfully or not) and
-contains some statistics aobut the execution of the DAG workflow.
+contains some statistics about the execution of the DAG workflow.
 
 ## What if something goes wrong?
 
